@@ -3,7 +3,7 @@
 Plugin Name: My Page Order
 Plugin URI: http://www.geekyweekly.com/mypageorder
 Description: A Wordpress plugin to let you set the order of your pages
-Version: 2.3
+Version: 2.5
 Author: froman118
 Author URI: http://www.geekyweekly.com
 Author Email: froman118@gmail.com
