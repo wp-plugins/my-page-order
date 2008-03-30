@@ -2,8 +2,9 @@
 /*
 Plugin Name: My Page Order
 Plugin URI: http://www.geekyweekly.com/mypageorder
-Description: A Wordpress plugin to let you set the order of your pages
-Version: 2.3
+Description: My Page Order allows you to set the order of pages through a drag and drop interface. The default method
+of setting the order page by page is extremely clumsy, especially with a large number of pages.
+Version: 2.5
 Author: froman118
 Author URI: http://www.geekyweekly.com
 Author Email: froman118@gmail.com
