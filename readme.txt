@@ -1,4 +1,4 @@
-My Page Order
+=== My Page Order ===
 Contributors: froman118
 Donate link: http://geekyweekly.com/mypageorder
 Tags: page, order, sidebar, widget
