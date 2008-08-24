@@ -12,7 +12,7 @@ Author Email: froman118@gmail.com
 function mypageorder_menu()
 {   if (function_exists('add_submenu_page')) {
         $location = "../wp-content/plugins/";
-        add_submenu_page("edit.php", 'My Page Order', 'My Page Order', 2,"mypageorder",'mypageorder');
+        add_submenu_page("edit.php", 'My Page Order', 'My Page Order', 5,"mypageorder",'mypageorder');
 		
     }
 }
