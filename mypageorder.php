@@ -57,8 +57,8 @@ else
 	}
 ?>
 <div class='wrap'>
-	<h2>My Page Order</h2>
-	<p>Choose a page from the drop down to order its subpages or order the pages on this level by dragging and dropping them into the desired order.</p>
+	<h2><?php _e('My Page Order', 'mypageorder') ?></h2>
+	<p><?php _e('Choose a page from the drop down to order its subpages or order the pages on this level by dragging and dropping them into the desired order.', 'mypageorder') ?></p>
 
 <?php	
 	if($parentID != 0)
@@ -67,15 +67,15 @@ else
 		echo "<a href='edit.php?page=mypageorder&parentID=$parentsParent[0]'>Return to parent page</a>";
 	}
  if($subPageStr != "") { ?>
-	<h3>Order Subpages</h3>
+	<h3><?php _e('Order Subpages', 'mypageorder') ?></h3>
 	<select id="pages" name="pages"><?php
 		echo $subPageStr;
 	?>
 	</select>
-	&nbsp;<input type="button" name="edit" Value="Order Subpages" onClick="javascript:goEdit();">
+	&nbsp;<input type="button" name="edit" Value="<?php _e('Order Subpages', 'mypageorder') ?>" onClick="javascript:goEdit();">
 <?php } ?>
 
-	<h3>Order Pages</h3>
+	<h3><?php _e('Order Pages', 'mypageorder') ?></h3>
 	<div id="order" style="width: 500px; margin:10px 10px 10px 0px; padding:10px; border:1px solid #B2B2B2;"><?php
 	foreach($results as $row)
 	{
@@ -83,7 +83,7 @@ else
 	}?>
 	</div>
 	
-	<input type="button" id="orderButton" Value="Click to Order Pages" onclick="javascript:orderPages();">&nbsp;&nbsp;<strong id="updateText"></strong>
+	<input type="button" id="orderButton" Value="<?php _e('Click to Order Pages', 'mypageorder') ?>" onclick="javascript:orderPages();">&nbsp;&nbsp;<strong id="updateText"></strong>
 
 <?php
 }
@@ -106,7 +106,7 @@ else
 	function orderPages() {
 		
 		$("orderButton").style.display = "none";
-		$("updateText").innerHTML = "Updating Page Order...";
+		$("updateText").innerHTML = "<?php _e('Updating Page Order...', 'mypageorder') ?>";
 		var alerttext = '';
 		var order = Sortable.serialize('order');
 		alerttext = Sortable.sequence('order');
@@ -115,7 +115,7 @@ else
 		 onSuccess: function(){
       			new Effect.Highlight('order', {startcolor:'#F9FC4A', endcolor:'#CFEBF7',restorecolor:'#CFEBF7', duration: 1.5, queue: 'front'})
 				new Effect.Highlight('order', {startcolor:'#CFEBF7', endcolor:'#ffffff',restorecolor:'#ffffff', duration: 1.5, queue: 'end'})
-				$("updateText").innerHTML = "Pages updated successfully.";
+				$("updateText").innerHTML = "<?php _e('Page order updated successfully.', 'mypageorder') ?>";
 				$("orderButton").style.display = "inline";
    			 }
 		  });
@@ -129,5 +129,11 @@ else
 
 </script>
 <?php
+}
+
+add_action('init', 'mypageorder_loadtranslation');
+
+function mypageorder_loadtranslation() {
+	load_plugin_textdomain('mypageorder', PLUGINDIR.'/'.dirname(plugin_basename(__FILE__)), dirname(plugin_basename(__FILE__)));
 }
 ?>
