@@ -6,7 +6,7 @@ Requires at least: 2.5
 Tested up to: 2.6.1
 Stable tag: 2.6.1
 
-My Page Order allows you to set the order of pages through a drag and drop interface.
+My Page Order allows you to set the order of pages through a drag and drop interface. 
 
 == Description ==
 
