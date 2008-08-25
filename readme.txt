@@ -16,7 +16,6 @@ of setting the order page by page is extremely clumsy, especially with a large n
 = Change Log =
 
 2.6.1:
-
 * Localized strings and added .po files for translation. If you are interested in translating send me an email.
 
 
