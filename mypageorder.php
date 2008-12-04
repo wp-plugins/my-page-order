@@ -3,25 +3,37 @@
 Plugin Name: My Page Order
 Plugin URI: http://www.geekyweekly.com/mypageorder
 Description: My Page Order allows you to set the order of pages through a drag and drop interface. The default method of setting the order page by page is extremely clumsy, especially with a large number of pages.
-Version: 2.6.1
+Version: 2.7
 Author: froman118
 Author URI: http://www.geekyweekly.com
 Author Email: froman118@gmail.com
 */
 
+
+
 function mypageorder_menu()
 {   if (function_exists('add_submenu_page')) {
-        $location = "../wp-content/plugins/";
-        add_submenu_page("edit.php", 'My Page Order', 'My Page Order', 5,"mypageorder",'mypageorder');
-		
+        add_submenu_page(getTarget(), 'My Page Order', 'My Page Order', 5,"mypageorder",'mypageorder');
     }
 }
 
 function mypageorder_js_libs() {
 	if ( $_GET['page'] == "mypageorder" ) {
-	  wp_enqueue_script('scriptaculous');
+		wp_enqueue_script('jquery');
+		wp_enqueue_script('jquery-ui-core');
+		wp_enqueue_script('jquery-ui-sortable');
 	}
 }
+
+//Switch page target depending on version
+function getTarget() {
+	global $wp_version;
+	if (version_compare($wp_version, '2.6.5', '>'))
+		return "edit-pages.php";
+	else
+		return "edit.php";
+}
+
 add_action('admin_menu', 'mypageorder_menu');
 add_action('admin_menu', 'mypageorder_js_libs');
 
@@ -33,6 +45,7 @@ $mode = $_GET['mode'];
 $parentID = 0;
 if (isset($_GET['parentID']))
 	$parentID = $_GET['parentID'];
+$success = "";
 
 if($mode == "act_OrderPages")
 {  
@@ -44,27 +57,28 @@ if($mode == "act_OrderPages")
 	{
 		$wpdb->query("UPDATE $wpdb->posts SET menu_order = '$i' WHERE id ='$IDs[$i]'");
     }
+$success = '<div id="message" class="updated fade"><p>'. __('Page order updated successfully.', 'mypageorder').'</p></div>';
 }
-else
-{
+
 	$subPageStr = "";
-	$results=$wpdb->get_results("SELECT * FROM $wpdb->posts WHERE post_parent = $parentID and post_type = 'page' and post_status='publish' ORDER BY menu_order ASC");
+	$results=$wpdb->get_results("SELECT * FROM $wpdb->posts WHERE post_parent = $parentID and post_type = 'page' ORDER BY menu_order ASC");
 	foreach($results as $row)
 	{
-		$postCount=$wpdb->get_row("SELECT count(*) as postsCount FROM $wpdb->posts WHERE post_parent = $row->ID and post_status='publish' and post_type = 'page' ", ARRAY_N);
+		$postCount=$wpdb->get_row("SELECT count(*) as postsCount FROM $wpdb->posts WHERE post_parent = $row->ID and post_type = 'page' ", ARRAY_N);
 		if($postCount[0] > 0)
 	    	$subPageStr = $subPageStr."<option value='$row->ID'>$row->post_title</option>";
 	}
 ?>
 <div class='wrap'>
 	<h2><?php _e('My Page Order', 'mypageorder') ?></h2>
+<?php echo $success; ?>
 	<p><?php _e('Choose a page from the drop down to order its subpages or order the pages on this level by dragging and dropping them into the desired order.', 'mypageorder') ?></p>
 
 <?php	
 	if($parentID != 0)
 	{
 		$parentsParent = $wpdb->get_row("SELECT post_parent FROM $wpdb->posts WHERE ID = $parentID ", ARRAY_N);
-		echo "<a href='edit.php?page=mypageorder&parentID=$parentsParent[0]'>Return to parent page</a>";
+		echo "<a href='". getTarget() . "?page=mypageorder&parentID=$parentsParent[0]'>" . __('Return to parent page', 'mypageorder') . "</a>";
 	}
  if($subPageStr != "") { ?>
 	<h3><?php _e('Order Subpages', 'mypageorder') ?></h3>
@@ -76,57 +90,46 @@ else
 <?php } ?>
 
 	<h3><?php _e('Order Pages', 'mypageorder') ?></h3>
-	<div id="order" style="width: 500px; margin:10px 10px 10px 0px; padding:10px; border:1px solid #B2B2B2;"><?php
+	<ul id="order" style="width: 500px; margin:10px 10px 10px 0px; padding:10px; border:1px solid #B2B2B2; list-style:none;"><?php
 	foreach($results as $row)
 	{
-		echo "<div id='item_$row->ID' class='lineitem'>$row->post_title</div>";
+		echo "<li id='$row->ID' class='lineitem'>$row->post_title</li>";
 	}?>
-	</div>
+	</ul>
 	
 	<input type="button" id="orderButton" Value="<?php _e('Click to Order Pages', 'mypageorder') ?>" onclick="javascript:orderPages();">&nbsp;&nbsp;<strong id="updateText"></strong>
 
-<?php
-}
-?>
 </div>
 
 <style>
-	div.lineitem {
+	li.lineitem {
 		margin: 3px 0px;
 		padding: 2px 5px 2px 5px;
 		background-color: #F1F1F1;
 		border:1px solid #B2B2B2;
 		cursor: move;
+		width: 500px;
 	}
 </style>
 
 <script language="JavaScript">
-	Sortable.create('order',{tag:'div'});
+	jQuery("#order").sortable({ 
+		placeholder: "ui-selected", 
+		revert: true 
+	});
 	
 	function orderPages() {
-		
-		$("orderButton").style.display = "none";
-		$("updateText").innerHTML = "<?php _e('Updating Page Order...', 'mypageorder') ?>";
-		var alerttext = '';
-		var order = Sortable.serialize('order');
-		alerttext = Sortable.sequence('order');
-		
-		new Ajax.Request('edit.php?page=mypageorder&mode=act_OrderPages&idString='+alerttext, {
-		 onSuccess: function(){
-      			new Effect.Highlight('order', {startcolor:'#F9FC4A', endcolor:'#CFEBF7',restorecolor:'#CFEBF7', duration: 1.5, queue: 'front'})
-				new Effect.Highlight('order', {startcolor:'#CFEBF7', endcolor:'#ffffff',restorecolor:'#ffffff', duration: 1.5, queue: 'end'})
-				$("updateText").innerHTML = "<?php _e('Page order updated successfully.', 'mypageorder') ?>";
-				$("orderButton").style.display = "inline";
-   			 }
-		  });
-		return false;
-	}
-	function goEdit ()
-    {
-		if($("pages").value != "")
-			location.href="edit.php?page=mypageorder&mode=dsp_OrderPages&parentID="+$("pages").value;
+		jQuery("#orderButton").css("display", "none");
+		jQuery("#updateText").html("<?php _e('Updating Page Order...', 'mypageorder') ?>");
+
+		idList = jQuery("#order").sortable("toArray");
+		location.href = '<?php echo getTarget(); ?>?page=mypageorder&mode=act_OrderPages&parentID=<?php echo $parentID; ?>&idString='+idList;
 	}
 
+	function goEdit () {
+		if(jQuery("#pages").val() != "")
+			location.href="<?php echo getTarget(); ?>?page=mypageorder&mode=dsp_OrderPages&parentID="+jQuery("#pages").val();
+	}
 </script>
 <?php
 }
