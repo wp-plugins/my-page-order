@@ -9,8 +9,6 @@ Author URI: http://www.geekyweekly.com
 Author Email: froman118@gmail.com
 */
 
-
-
 function mypageorder_menu()
 {   if (function_exists('add_submenu_page')) {
         add_submenu_page(getTarget(), 'My Page Order', 'My Page Order', 5,"mypageorder",'mypageorder');
@@ -29,7 +27,7 @@ function mypageorder_js_libs() {
 function getTarget() {
 	global $wp_version;
 	if (version_compare($wp_version, '2.6.5', '>'))
-		return "edit-pages.php";
+		return "page-new.php";
 	else
 		return "edit.php";
 }
@@ -108,14 +106,15 @@ $success = '<div id="message" class="updated fade"><p>'. __('Page order updated 
 		background-color: #F1F1F1;
 		border:1px solid #B2B2B2;
 		cursor: move;
-		width: 500px;
+		width: 490px;
 	}
 </style>
 
 <script language="JavaScript">
 	jQuery("#order").sortable({ 
 		placeholder: "ui-selected", 
-		revert: true 
+		revert: false,
+		tolerance: "pointer" 
 	});
 	
 	function orderPages() {
