@@ -11,7 +11,7 @@ Author Email: froman118@gmail.com
 
 function mypageorder_menu()
 {   if (function_exists('add_submenu_page')) {
-        add_submenu_page(getTarget(), 'My Page Order', 'My Page Order', 5,"mypageorder",'mypageorder');
+        add_submenu_page(mypageorder_getTarget(), 'My Page Order', 'My Page Order', 5,"mypageorder",'mypageorder');
     }
 }
 
@@ -24,7 +24,7 @@ function mypageorder_js_libs() {
 }
 
 //Switch page target depending on version
-function getTarget() {
+function mypageorder_getTarget() {
 	global $wp_version;
 	if (version_compare($wp_version, '2.6.5', '>'))
 		return "page-new.php";
@@ -55,7 +55,7 @@ if($mode == "act_OrderPages")
 	{
 		$wpdb->query("UPDATE $wpdb->posts SET menu_order = '$i' WHERE id ='$IDs[$i]'");
     }
-$success = '<div id="message" class="updated fade"><p>'. __('Page order updated successfully.', 'mypageorder').'</p></div>';
+	$success = '<div id="message" class="updated fade"><p>'. __('Page order updated successfully.', 'mypageorder').'</p></div>';
 }
 
 	$subPageStr = "";
@@ -76,7 +76,7 @@ $success = '<div id="message" class="updated fade"><p>'. __('Page order updated 
 	if($parentID != 0)
 	{
 		$parentsParent = $wpdb->get_row("SELECT post_parent FROM $wpdb->posts WHERE ID = $parentID ", ARRAY_N);
-		echo "<a href='". getTarget() . "?page=mypageorder&parentID=$parentsParent[0]'>" . __('Return to parent page', 'mypageorder') . "</a>";
+		echo "<a href='". mypageorder_getTarget() . "?page=mypageorder&parentID=$parentsParent[0]'>" . __('Return to parent page', 'mypageorder') . "</a>";
 	}
  if($subPageStr != "") { ?>
 	<h3><?php _e('Order Subpages', 'mypageorder') ?></h3>
@@ -122,12 +122,12 @@ $success = '<div id="message" class="updated fade"><p>'. __('Page order updated 
 		jQuery("#updateText").html("<?php _e('Updating Page Order...', 'mypageorder') ?>");
 
 		idList = jQuery("#order").sortable("toArray");
-		location.href = '<?php echo getTarget(); ?>?page=mypageorder&mode=act_OrderPages&parentID=<?php echo $parentID; ?>&idString='+idList;
+		location.href = '<?php echo mypageorder_getTarget(); ?>?page=mypageorder&mode=act_OrderPages&parentID=<?php echo $parentID; ?>&idString='+idList;
 	}
 
 	function goEdit () {
 		if(jQuery("#pages").val() != "")
-			location.href="<?php echo getTarget(); ?>?page=mypageorder&mode=dsp_OrderPages&parentID="+jQuery("#pages").val();
+			location.href="<?php echo mypageorder_getTarget(); ?>?page=mypageorder&mode=dsp_OrderPages&parentID="+jQuery("#pages").val();
 	}
 </script>
 <?php
