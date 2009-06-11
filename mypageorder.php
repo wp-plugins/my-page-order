@@ -3,7 +3,7 @@
 Plugin Name: My Page Order
 Plugin URI: http://www.geekyweekly.com/mypageorder
 Description: My Page Order allows you to set the order of pages through a drag and drop interface. The default method of setting the order page by page is extremely clumsy, especially with a large number of pages.
-Version: 2.7.1
+Version: 2.8
 Author: froman118
 Author URI: http://www.geekyweekly.com
 Author Email: froman118@gmail.com
@@ -33,7 +33,7 @@ function mypageorder_getTarget() {
 }
 
 add_action('admin_menu', 'mypageorder_menu');
-add_action('admin_menu', 'mypageorder_js_libs');
+add_action('admin_enqueue_scripts', 'mypageorder_js_libs'); 
 
 function mypageorder()
 {
@@ -111,10 +111,13 @@ if($mode == "act_OrderPages")
 </style>
 
 <script language="JavaScript">
-	jQuery("#order").sortable({ 
-		placeholder: "ui-selected", 
-		revert: false,
-		tolerance: "pointer" 
+
+	jQuery(document).ready(function(){
+		jQuery("#order").sortable({ 
+			placeholder: "ui-selected", 
+			revert: false,
+			tolerance: "pointer" 
+		});
 	});
 	
 	function orderPages() {

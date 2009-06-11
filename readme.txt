@@ -3,8 +3,8 @@ Contributors: froman118
 Donate link: http://geekyweekly.com/mypageorder
 Tags: page, order, sidebar, widget
 Requires at least: 2.5
-Tested up to: 2.7.1
-Stable tag: 2.7.1
+Tested up to: 2.8
+Stable tag: 2.8
 
 My Page Order allows you to set the order of pages through a drag and drop interface. 
 
@@ -14,6 +14,10 @@ My Page Order allows you to set the order of pages through a drag and drop inter
 of setting the order page by page is extremely clumsy, especially with a large number of pages.
 
 = Change Log =
+
+2.8:
+
+* Updated for 2.8 compatibility
 
 2.7.1:
 
