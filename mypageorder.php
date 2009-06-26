@@ -33,7 +33,7 @@ function mypageorder_getTarget() {
 }
 
 add_action('admin_menu', 'mypageorder_menu');
-add_action('admin_enqueue_scripts', 'mypageorder_js_libs'); 
+add_action('admin_menu', 'mypageorder_js_libs'); 
 
 function mypageorder()
 {
