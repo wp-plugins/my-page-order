@@ -3,8 +3,8 @@ Contributors: froman118
 Donate link: http://geekyweekly.com/mypageorder
 Tags: page, order, sidebar, widget
 Requires at least: 2.5
-Tested up to: 2.8b
-Stable tag: 2.8b
+Tested up to: 2.8.3
+Stable tag: 2.8.3
 
 My Page Order allows you to set the order of pages through a drag and drop interface. 
 
@@ -14,6 +14,11 @@ My Page Order allows you to set the order of pages through a drag and drop inter
 of setting the order page by page is extremely clumsy, especially with a large number of pages.
 
 = Change Log =
+
+2.8.3:
+
+* Trying to fix Javascript onload issues. Settled on using the addLoadEvent function built into Wordpress. If the sorting does not initialize then you have a plugin that is incorrectly overriding the window.onload event. There is nothing I can do to help. 
+* This will also be the last version of this plugin I will release. I am working on a new "2.0" version that will only support WP 2.8 and greater. This jump will include a replacement widget with many more options than the built in one.
 
 2.8b:
 
