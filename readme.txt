@@ -1,6 +1,6 @@
 === My Page Order ===
 Contributors: froman118
-Donate link: http://geekyweekly.com/mypageorder
+Donate link: http://geekyweekly.com/gifts-and-donations
 Tags: page, order, sidebar, widget
 Requires at least: 2.8
 Tested up to: 2.8.6
@@ -20,9 +20,9 @@ My Page Order has been out since WP 1.5 (2006) and hasn't really changed since t
 
 = 2.8.6 =
 * Reworked old My Page Order code, added replacement widget with more options. Starting fresh with support for WP 2.8 and above only.
+* The PO file has changed and translations will need to be updated
 = 2.8.3 =
 * Trying to fix Javascript onload issues. Settled on using the addLoadEvent function built into Wordpress. If the sorting does not initialize then you have a plugin that is incorrectly overriding the window.onload event. There is nothing I can do to help. 
-* This will also be the last version of this plugin I will release. I am working on a new "2.0" version that will only support WP 2.8 and greater. This jump will include a replacement widget with many more options than the built in one.
 = 2.8b =
 * Fixed drag and drop bug for sure this time
 * Added Czech translation (Jan)
@@ -60,3 +60,7 @@ The change isn't automatic. You need to modify your theme or widgets.
 = Why isn't this already built into WP? =
 
 I don't know. Hopefully it will be in a future release in one form or another because the current method sucks.
+
+= Like the plugin? =
+
+If you like the plugin, consider showing your appreciation by saying thank you or making a [small donation](http://geekyweekly.com/gifts-and-donations).
