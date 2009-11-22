@@ -18,29 +18,29 @@ My Page Order has been out since WP 1.5 (2006) and hasn't really changed since t
 
 == Change Log ==
 
-=2.8.6=
+= 2.8.6 =
 * Reworked old My Page Order code, added replacement widget with more options. Starting fresh with support for WP 2.8 and above only.
-=2.8.3=
+= 2.8.3 =
 * Trying to fix Javascript onload issues. Settled on using the addLoadEvent function built into Wordpress. If the sorting does not initialize then you have a plugin that is incorrectly overriding the window.onload event. There is nothing I can do to help. 
 * This will also be the last version of this plugin I will release. I am working on a new "2.0" version that will only support WP 2.8 and greater. This jump will include a replacement widget with many more options than the built in one.
-=2.8b=
+= 2.8b =
 * Fixed drag and drop bug for sure this time
 * Added Czech translation (Jan)
-=2.8a
+= 2.8 a
 * Fixed bug breaking drag and drop in 2.7 (I think, can't test so let me know)
 * Added translations: Belorussian (Fatcow), French (updated, Annelies)
-=2.8=
+= 2.8 =
 * Updated for 2.8 compatibility
-=2.7.1=
+= 2.7.1 =
 * Translations added and thanks: Spanish (Karin), German (Bernhard), Swedish (Joakim), Italian (Stefano and Danny)
-=2.7=
+= 2.7 =
 * Updated for 2.7, now under the the new Page menu.
 * Unpublished pages now show up in the Subpage dropdown (thanks Josef)
 * Moved to jQuery for drag and drop
 * Removed finicky AJAX submission
 * Added missing translation phrase to POT, send me updated MO files and help fill in missing translations
 * Translations added and thanks: Russian (Flector), French (Merimac), Persian (Mohammad and Mohammad), Dutch (Anja).
-=2.6.1=
+= 2.6.1 =
 * Localized strings and added .po files for translation. If you are interested in translating send me an email.
 
 == Installation ==
