@@ -3,7 +3,7 @@
 Plugin Name: My Page Order
 Plugin URI: http://www.geekyweekly.com/mypageorder
 Description: My Page Order allows you to set the order of pages through a drag and drop interface. The default method of setting the order page by page is extremely clumsy, especially with a large number of pages.
-Version: 2.8.6
+Version: 2.9.1
 Author: Andrew Charlton
 Author URI: http://www.geekyweekly.com
 Author Email: froman118@gmail.com
@@ -178,7 +178,7 @@ function mypageorder_getSubPages($parentID)
 	$results = mypageorder_pageQuery($parentID);
 	foreach($results as $row)
 	{
-		$postCount=$wpdb->get_row("SELECT count(*) as postsCount FROM $wpdb->posts WHERE post_parent = $row->ID and post_type = 'page' ", ARRAY_N);
+		$postCount=$wpdb->get_row("SELECT count(*) as postsCount FROM $wpdb->posts WHERE post_parent = $row->ID and post_type = 'page' AND post_status != 'trash' ", ARRAY_N);
 		if($postCount[0] > 0)
 	    	$subPageStr = $subPageStr."<option value='$row->ID'>$row->post_title</option>";
 	}
@@ -189,7 +189,7 @@ function mypageorder_pageQuery($parentID)
 {
 	global $wpdb;
 	
-	return $wpdb->get_results("SELECT * FROM $wpdb->posts WHERE post_parent = $parentID and post_type = 'page' ORDER BY menu_order ASC");
+	return $wpdb->get_results("SELECT * FROM $wpdb->posts WHERE post_parent = $parentID and post_type = 'page' AND post_status != 'trash' ORDER BY menu_order ASC");
 }
 
 function mypageorder_getParentLink($parentID)

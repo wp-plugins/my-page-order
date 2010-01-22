@@ -3,8 +3,8 @@ Contributors: froman118
 Donate link: http://geekyweekly.com/gifts-and-donations
 Tags: page, order, sidebar, widget
 Requires at least: 2.8
-Tested up to: 2.8.6
-Stable tag: 2.8.6
+Tested up to: 2.9.1
+Stable tag: 2.9.1
 
 My Page Order allows you to set the order of pages through a drag and drop interface.
 
@@ -18,6 +18,8 @@ My Page Order has been out since WP 1.5 (2006) and hasn't really changed since t
 
 == Change Log ==
 
+= 2.9.1 =
+* Trashed pages are now being filtered out.
 = 2.8.6 =
 * Reworked old My Page Order code, added replacement widget with more options. Starting fresh with support for WP 2.8 and above only.
 * The PO file has changed and translations will need to be updated
