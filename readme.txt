@@ -25,7 +25,6 @@ My Page Order has been out since WP 1.5 (2006) and hasn't really changed since t
 * Updated page code to use regular submit buttons, less reliance on Javascript and query strings
 * Page titles now wrapped in localization code, thanks for the tip Florian
 * Added Polish translation, thanks Cezary
-* Added Ukranian translation, thanks Jurko
 * Added Turkish translation, thanks Demircan
 * Added Finnish translation, thanks Jussi
 = 2.9.1 =
