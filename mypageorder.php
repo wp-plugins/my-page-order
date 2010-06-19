@@ -217,7 +217,7 @@ function mypageorder_getSubPages($parentID)
 	$results = mypageorder_pageQuery($parentID);
 	foreach($results as $row)
 	{
-		$postCount=$wpdb->get_row("SELECT count(*) as postsCount FROM $wpdb->posts WHERE post_parent = $row->ID and post_type = 'page' AND post_status != 'trash' ", ARRAY_N);
+		$postCount=$wpdb->get_row("SELECT count(*) as postsCount FROM $wpdb->posts WHERE post_parent = $row->ID and post_type = 'page' AND post_status != 'trash' AND post_status != 'auto-draft' ", ARRAY_N);
 		if($postCount[0] > 0)
 	    	$subPageStr = $subPageStr."<option value='$row->ID'>".__($row->post_title)."</option>";
 	}
@@ -227,7 +227,7 @@ function mypageorder_getSubPages($parentID)
 function mypageorder_pageQuery($parentID)
 {
 	global $wpdb;
-	return $wpdb->get_results("SELECT * FROM $wpdb->posts WHERE post_parent = $parentID and post_type = 'page' AND post_status != 'trash' ORDER BY menu_order ASC");
+	return $wpdb->get_results("SELECT * FROM $wpdb->posts WHERE post_parent = $parentID and post_type = 'page' AND post_status != 'trash' AND post_status != 'auto-draft' ORDER BY menu_order ASC");
 }
 
 function mypageorder_getParentLink($parentID)
@@ -275,10 +275,20 @@ class mypageorder_Widget extends WP_Widget {
 		if ( $sortby != 'post_title' || $sortby != 'ID' )
 			$sortby = $sortby . ', post_title';
 
-		$out = wp_page_menu( apply_filters('widget_pages_args', array('title_li' => '', 'echo' => 0, 'sort_column' => $sortby, 'sort_order' => $sort_order, 'exclude' => $exclude, 
-				'exclude_tree' => $exclude_tree, 'include' => $include, 'depth' => $depth, 'child_of' => $child_of, 'show_date' => $show_date, 
-				'date_format' => $date_format, 'meta_key' => $meta_key, 'meta_value' => $meta_value, 'link_before' => $link_before, 'link_after' => $link_after, 
-				'authors' => $authors, 'number' => $number, 'offset' => $offset, 'show_home' => $show_home	) ) );
+		if($show_home != '')
+		{
+			$out = wp_page_menu( apply_filters('widget_pages_args', array('title_li' => '', 'echo' => 0, 'sort_column' => $sortby, 'sort_order' => $sort_order, 'exclude' => $exclude, 
+					'exclude_tree' => $exclude_tree, 'include' => $include, 'depth' => $depth, 'child_of' => $child_of, 'show_date' => $show_date, 
+					'date_format' => $date_format, 'meta_key' => $meta_key, 'meta_value' => $meta_value, 'link_before' => $link_before, 'link_after' => $link_after, 
+					'authors' => $authors, 'number' => $number, 'offset' => $offset, 'show_home' => $show_home	) ) );
+		}
+		else
+		{
+			$out = wp_list_pages( apply_filters('widget_pages_args', array('title_li' => '', 'echo' => 0, 'sort_column' => $sortby, 'sort_order' => $sort_order, 'exclude' => $exclude, 
+					'exclude_tree' => $exclude_tree, 'include' => $include, 'depth' => $depth, 'child_of' => $child_of, 'show_date' => $show_date, 
+					'date_format' => $date_format, 'meta_key' => $meta_key, 'meta_value' => $meta_value, 'link_before' => $link_before, 'link_after' => $link_after, 
+					'authors' => $authors, 'number' => $number, 'offset' => $offset, 'show_home' => $show_home	) ) );
+		}
 
 		if ( !empty( $out ) ) {
 			echo $before_widget;
